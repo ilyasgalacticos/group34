@@ -1,0 +1,26 @@
+<html xmlns:th="http://www.w3.org/1999/xhtml"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layouts/main.html">
+<div layout:fragment="myContent">
+    <div class="row">
+        <div class="col-sm-12">
+            <table cellpadding="20" class="table table-stripped">
+                <tbody>
+                    <tr>
+                        <td>
+                            Name :
+                        </td>
+                        <td th:text = "${item.name}"></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Price :
+                        </td>
+                        <td th:text = "${item.price}"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+</html>
