@@ -23,6 +23,8 @@ public class MainController {
     public String index(ModelMap model){
         List<Items> items = itemsRepository.findAllByPriceGreaterThan(100);
         model.addAttribute("itemler", items);
+        System.out.println("Hello Almaty");
+        String text = "Kazakhstan";
         return "index";
     }
 
