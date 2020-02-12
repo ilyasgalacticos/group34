@@ -1,5 +1,6 @@
 <html xmlns:th="http://www.w3.org/1999/xhtml"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
     <head>
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
         <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
@@ -13,30 +14,63 @@
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <div class="collapse navbar-collapse" sec:authorize="isAnonymous()">
                     <ul class="navbar-nav mr-auto">
                         <li class="nav-item">
-                            <a class="nav-link" href="#">All Items</a>
+                            <a class="nav-link" th:href="@{'/'}">All Items</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Register</a>
+                            <a class="nav-link" th:href="@{'/register'}">Register</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Login</a>
+                            <a class="nav-link" th:href="@{'/login'}">Login</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="collapse navbar-collapse" sec:authorize="isAuthenticated()">
+                    <ul class="navbar-nav mr-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" th:href="@{'/'}">All Items</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" th:href="@{'/profile'}">Profile</a>
+                        </li>
+                        <li class="nav-item" sec:authorize="hasAnyRole('ROLE_ADMIN')">
+                            <a class="nav-link" th:href="@{'/users'}">Users</span></a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="JavaScript:void(0)" onclick="toLogout()">Logout</a>
                         </li>
                     </ul>
                 </div>
             </nav>
+            <form th:action = "@{'/signout'}" method="post" id = "logoutFormId">
+            </form>
+            <script type="text/javascript">
+                function toLogout() {
+                    document.getElementById("logoutFormId").submit();
+                }
+            </script>
         </div>
         <div class="container-fluid mt-4">
             <div class="row">
                 <div class="col-sm-4">
-                    <ul class="list-group">
-                        <li class="list-group-item active">All Items</li>
+                    <ul class="list-group" sec:authorize="hasAnyRole('ROLE_ADMIN')">
+                        <li class="list-group-item">All Items</li>
                         <li class="list-group-item">Top Items</li>
                         <li class="list-group-item">Electronics</li>
                         <li class="list-group-item">Laptops</li>
                         <li class="list-group-item">Mobile Phones</li>
+                    </ul>
+                    <ul class="list-group" sec:authorize="hasAnyRole('ROLE_MODERATOR')">
+                        <li class="list-group-item">All Items</li>
+                        <li class="list-group-item">Top Items</li>
+                    </ul>
+                    <ul class="list-group" sec:authorize="isAnonymous()">
+                        <li class="list-group-item">All Items</li>
+                    </ul>
+                    <ul class="list-group" sec:authorize="hasAnyRole('ROLE_USER')">
+                        <li class="list-group-item">PROFILE</li>
                     </ul>
                 </div>
                 <div class="col-sm-8" layout:fragment="myContent" style="min-height: 700px;">

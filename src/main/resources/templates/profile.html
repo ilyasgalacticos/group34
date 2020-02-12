@@ -1,0 +1,14 @@
+<html xmlns:th="http://www.w3.org/1999/xhtml"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      layout:decorator="layouts/main.html">
+    <div layout:fragment="myContent" >
+        <div class="row">
+            <div class="col-sm-8">
+                <h1>
+                    <span th:text = "${user.fullName}"></span>
+                </h1>
+            </div>
+        </div>
+    </div>
+</html>

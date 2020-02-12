@@ -5,21 +5,9 @@
     <div layout:fragment="myContent" >
         <div class="row">
             <div class="col-sm-8">
-                <form action="/add" method="post" class="form">
-                    <div class="form-group">
-                        <label>
-                            NAME :
-                        </label>
-                        <input type="text" name="name" class="form-control">
-                    </div>
-                    <div class="form-group">
-                        <label>
-                            PRICE :
-                        </label>
-                        <input type="number" name="price" class="form-control">
-                    </div>
-                    <button class="btn btn-success">ADD</button>
-                </form>
+                <h1>
+                    <span th:text = "${user.fullName}"></span>
+                </h1>
             </div>
         </div>
         <div class="row">
@@ -31,10 +19,10 @@
                             ID
                         </th>
                         <th>
-                            NAME
+                            EMAIL
                         </th>
                         <th>
-                            PRICE
+                            FULL NAME
                         </th>
                         <th>
                             DETAILS
@@ -42,12 +30,12 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr th:each = "item : ${itemler}">
-                        <td th:text = "${item.id}"></td>
-                        <td th:text = "${item.name}"></td>
-                        <td th:text = "${item.price}"></td>
+                    <tr th:each = "usr : ${userList}">
+                        <td th:text = "${usr.id}"></td>
+                        <td th:text = "${usr.email}"></td>
+                        <td th:text = "${usr.fullName}"></td>
                         <td>
-                            <a th:href = "@{'/details/'+${item.id}}">DETAILS</a>
+                            <a th:href = "@{'/userdetails/'+${usr.id}}">DETAILS</a>
                         </td>
                     </tr>
                     </tbody>
