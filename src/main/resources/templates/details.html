@@ -1,5 +1,6 @@
 <html xmlns:th="http://www.w3.org/1999/xhtml"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
       layout:decorator="layouts/main.html">
 <div layout:fragment="myContent">
     <div class="row">
@@ -20,6 +21,10 @@
                     </tr>
                 </tbody>
             </table>
+            <form th:action = "@{'/delete'}" method="post" sec:authorize="hasAnyRole('ROLE_ADMIN')">
+                <input type="hidden" th:value = "${item.id}" name="id">
+                <button class="btn btn-danger">DELETE ITEM</button>
+            </form>
         </div>
     </div>
 </div>
